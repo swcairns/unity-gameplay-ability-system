@@ -176,20 +176,20 @@ namespace AttributeSystem.Components
             }
         }
 
-        private List<AttributeValue> prevAttributeValues = new List<AttributeValue>();
+        private readonly List<AttributeValue> prevAttributeValues = new List<AttributeValue>();
         public void UpdateAttributeCurrentValues()
         {
             prevAttributeValues.Clear();
-            for (var i = 0; i < this.AttributeValues.Count; i++)
+            for (var i = 0; i < AttributeValues.Count; i++)
             {
-                var _attribute = this.AttributeValues[i];
-                prevAttributeValues.Add(_attribute);
-                this.AttributeValues[i] = _attribute.Attribute.CalculateCurrentAttributeValue(_attribute, this.AttributeValues);
+                var attribute = AttributeValues[i];
+                prevAttributeValues.Add(attribute);
+                AttributeValues[i] = attribute.Attribute.CalculateCurrentAttributeValue(attribute, AttributeValues);
             }
 
-            for (var i = 0; i < this.AttributeSystemEvents.Length; i++)
+            foreach (var attributeEvent in this.AttributeSystemEvents)
             {
-                this.AttributeSystemEvents[i].PreAttributeChange(this, prevAttributeValues, ref this.AttributeValues);
+                attributeEvent.PreAttributeChange(this, prevAttributeValues, ref this.AttributeValues);
             }
         }
 
@@ -214,10 +214,10 @@ namespace AttributeSystem.Components
             GetAttributeCache();
         }
 
-        private void LateUpdate()
-        {
-            UpdateAttributeCurrentValues();
-        }
+        // private void LateUpdate()
+        // {
+        //     UpdateAttributeCurrentValues();
+        // }
 
 
     }

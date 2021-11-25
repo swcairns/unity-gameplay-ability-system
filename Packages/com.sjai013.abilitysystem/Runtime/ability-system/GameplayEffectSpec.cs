@@ -78,14 +78,14 @@ namespace AbilitySystem
 
         public GameplayEffectSpec TickPeriodic(float deltaTime, out bool executePeriodicTick)
         {
-            this.TimeUntilPeriodTick -= deltaTime;
+            TimeUntilPeriodTick -= deltaTime;
             executePeriodicTick = false;
-            if (this.TimeUntilPeriodTick <= 0)
+            if (TimeUntilPeriodTick <= 0)
             {
-                this.TimeUntilPeriodTick = this.GameplayEffect.Period.Period;
+                TimeUntilPeriodTick = GameplayEffect.Period.Period;
 
                 // Check to make sure period is valid, otherwise we'd just end up executing every frame
-                if (this.GameplayEffect.Period.Period > 0)
+                if (GameplayEffect.Period.Period > 0)
                 {
                     executePeriodicTick = true;
                 }
